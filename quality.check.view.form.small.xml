@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<form string="Quality Checks">
+    <h2>
+        <field name="product_id" readonly="1" options="{'no_open': True}"/>
+    </h2>
+    <field name="note" readonly="1"/>
+    <field name="x_partner_comment"/>
+    <field name="workcenter_id" invisible="1"/>
+    <field name="workorder_id" invisible="1"/>
+    <label string="Quantity To Produce" invisible="1"/>
+    <field name="x_qty_production" invisible="1"/>
+    <label for="x_qty_inspection" invisible="1"/>
+    <field name="x_qty_inspection" digits="(14, 0)" invisible="1"/>
+    <field name="x_qty_inspection_stored" invisible="1"/>
+    <label for="x_check_complete" invisible="1"/>
+    <field name="x_check_complete" invisible="1"/>
+    <label for="x_check_complete_stored" invisible="1"/>
+    <field name="x_check_complete_stored" invisible="1"/>
+    <label for="x_product_material" invisible="1"/>
+    <field name="x_product_material" invisible="1"/>
+    <field name="team_id" invisible="1"/>
+    <field name="picking_id" invisible="1"/>
+    <field name="point_id" invisible="1"/>
+    <field name="test_type" invisible="1"/>
+    <div attrs="{'invisible': [('workcenter_id', '!=', 5)]}">
+        <label for="x_seal_in_place"/>
+        <field name="x_seal_in_place"/>
+    </div>
+    <div attrs="{'invisible': [('workcenter_id', '!=', 5)]}">
+        <label for="x_passed_visual_inspection"/>
+        <field name="x_passed_visual_inspection"/>
+    </div>
+    <notebook>
+        <page string="HEIGHT" attrs="{'invisible': [('workcenter_id', '!=', 1)]}">
+            <label string="Height Result" style="font-weight:bold"/>
+            <field name="x_height_fail" class="alert alert-danger oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <field name="x_height_pass" class="alert alert-success oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <br/>
+            <label for="x_min_height" invisible="1"/>
+            <field name="x_min_height" invisible="1"/>
+            <label for="x_max_height" invisible="1"/>
+            <field name="x_max_height" invisible="1"/>
+            <label for="x_height_min_tol" string="Min Tolerance"/>
+            <field name="x_height_min_tol" digits="(14, 3)"/>
+            <br/>
+            <label for="x_height_max_tol" string="Max Tolerance"/>
+            <field name="x_height_max_tol" digits="(14, 3)"/>
+            <group>
+                <group>
+                    <label for="x_height01"/>
+                    <div class="o_row">
+                        <field name="x_height01" digits="(14, 3)" attrs="{'required':1}"/>
+                        <label string="in"/>
+                    </div>
+                    <label for="x_height02" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}" class="o_row">
+                        <field name="x_height02" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 2)],'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    </div>
+                    <label for="x_height03" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}" class="o_row">
+                        <field name="x_height03" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 3)],'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    </div>
+                    <label for="x_height04" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}" class="o_row">
+                        <field name="x_height04" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 4)],'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    </div>
+                    <label for="x_height05" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}" class="o_row">
+                        <field name="x_height05" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 5)],'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    </div>
+                </group>
+            </group>
+        </page>
+        <page string="PLEATS/WIDTH" attrs="{'invisible': [('workcenter_id', '!=', 1)]}">
+            <section attrs="{'invisible': [('x_product_material', '!=', 'metal')]}">
+            <label string="Pleats Result" style="font-weight:bold"/>
+            <field name="x_pleats_fail" class="alert alert-danger oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <field name="x_pleats_pass" class="alert alert-success oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <br/>
+            <label for="x_min_pleats" invisible="1"/>
+            <field name="x_min_pleats" invisible="1"/>
+            <label for="x_max_pleats" invisible="1"/>
+            <field name="x_max_pleats" invisible="1"/>
+            <label for="x_pleats_min_tol" string="Min Tolerance"/>
+            <field name="x_pleats_min_tol" digits="(14, 3)"/>
+            <br/>
+            <label for="x_pleats_max_tol" string="Max Tolerance"/>
+            <field name="x_pleats_max_tol" digits="(14, 3)"/>
+            </section>
+            <group attrs="{'invisible': [('x_product_material', '!=', 'metal')]}">
+                <group>
+                    <label for="x_pleats01"/>
+                    <div class="o_row">
+                        <field name="x_pleats01" digits="(14, 3)" attrs="{'required':1}"/>
+                    </div>
+                    <label for="x_pleats02" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}" class="o_row">
+                        <field name="x_pleats02" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 2)],'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    </div>
+                    <label for="x_pleats03" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}" class="o_row">
+                        <field name="x_pleats03" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 3)],'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    </div>
+                    <label for="x_pleats04" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}" class="o_row">
+                        <field name="x_pleats04" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 4)],'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    </div>
+                    <label for="x_pleats05" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}" class="o_row">
+                        <field name="x_pleats05" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 5)],'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    </div>
+                </group>
+            </group>
+            <section attrs="{'invisible': [('x_product_material', '!=', 'nylon')]}">
+            <label string="Width Result" style="font-weight:bold"/>
+            <field name="x_width_fail" class="alert alert-danger oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <field name="x_width_pass" class="alert alert-success oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <br/>
+            <label for="x_min_width" invisible="1"/>
+            <field name="x_min_width" invisible="1"/>
+            <label for="x_max_width" invisible="1"/>
+            <field name="x_max_width" invisible="1"/>
+            <label for="x_width_min_tol" string="Min Tolerance"/>
+            <field name="x_width_min_tol" digits="(14, 3)"/>
+            <br/>
+            <label for="x_width_max_tol" string="Max Tolerance"/>
+            <field name="x_width_max_tol" digits="(14, 3)"/>
+            </section>
+            <group attrs="{'invisible': [('x_product_material', '!=', 'nylon')]}">
+                <group>
+                    <label for="x_width01"/>
+                    <div class="o_row">
+                        <field name="x_width01" digits="(14, 3)" attrs="{'required':1}"/>
+                        <label string="in"/>
+                    </div>
+                    <label for="x_width02" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}" class="o_row">
+                        <field name="x_width02" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 2)],'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    </div>
+                    <label for="x_width03" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}" class="o_row">
+                        <field name="x_width03" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 3)],'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    </div>
+                    <label for="x_width04" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}" class="o_row">
+                        <field name="x_width04" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 4)],'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    </div>
+                    <label for="x_width05" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}" class="o_row">
+                        <field name="x_width05" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 5)],'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    </div>
+                </group>
+            </group>
+        </page>
+        <page string="LENGTH" attrs="{'invisible': ['&amp;',('workcenter_id', '!=', 2),('workcenter_id', '!=', 5)]}">
+            <label for="measure_success" string="Measurement Result" invisible="1"/>
+            <field name="measure_success" invisible="1"/>
+            <label string="Length Result" style="font-weight:bold"/>
+            <field name="x_length_fail" class="alert alert-danger oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <field name="x_length_pass" class="alert alert-success oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <br/>
+            <label for="x_min_measured_length" invisible="1"/>
+            <field name="x_min_measured_length" invisible="1"/>
+            <label for="x_max_measured_length" invisible="1"/>
+            <field name="x_max_measured_length" invisible="1"/>
+            <label for="x_tolerance_min" string="Min Tolerance"/>
+            <field name="x_tolerance_min" digits="(14, 3)"/>
+            <br/>
+            <label for="x_tolerance_max" string="Max Tolerance"/>
+            <field name="x_tolerance_max" digits="(14, 3)"/>
+            <group>
+                <group>
+                    <label for="measure" string="Length 1"/>
+                    <div class="o_row">
+                        <field name="measure" digits="(14, 3)" attrs="{'required':1}"/>
+                        <label string="in"/>
+                    </div>
+                    <label for="x_length02" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}" class="o_row">
+                        <field name="x_length02" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 2)],'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    </div>
+                    <label for="x_length03" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}" class="o_row">
+                        <field name="x_length03" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 3)],'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    </div>
+                    <label for="x_length04" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}" class="o_row">
+                        <field name="x_length04" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 4)],'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    </div>
+                    <label for="x_length05" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}" class="o_row">
+                        <field name="x_length05" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 5)],'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    </div>
+                    <label for="x_length06" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 6)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 6)]}" class="o_row">
+                        <field name="x_length06" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 6)],'invisible': [('x_qty_inspection_stored', '&lt;', 6)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 6)]}"/>
+                    </div>
+                    <label for="x_length07" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 7)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 7)]}" class="o_row">
+                        <field name="x_length07" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 7)],'invisible': [('x_qty_inspection_stored', '&lt;', 7)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 7)]}"/>
+                    </div>
+                    <label for="x_length08" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 8)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 8)]}" class="o_row">
+                        <field name="x_length08" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 8)],'invisible': [('x_qty_inspection_stored', '&lt;', 8)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 8)]}"/>
+                    </div>
+                    <label for="x_length09" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 9)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 9)]}" class="o_row">
+                        <field name="x_length09" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 9)],'invisible': [('x_qty_inspection_stored', '&lt;', 9)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 9)]}"/>
+                    </div>
+                    <label for="x_length10" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 10)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 10)]}" class="o_row">
+                        <field name="x_length10" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 10)],'invisible': [('x_qty_inspection_stored', '&lt;', 10)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 10)]}"/>
+                    </div>
+                </group>
+                <group attrs="{'invisible': [('workcenter_id', '!=', 2)]}">
+                    <label for="x_length11" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 11)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 11)]}" class="o_row">
+                        <field name="x_length11" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 11)],'invisible': [('x_qty_inspection_stored', '&lt;', 11)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 11)]}"/>
+                    </div>
+                    <label for="x_length12" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 12)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 12)]}" class="o_row">
+                        <field name="x_length12" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 12)],'invisible': [('x_qty_inspection_stored', '&lt;', 12)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 12)]}"/>
+                    </div>
+                    <label for="x_length13" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 13)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 13)]}" class="o_row">
+                        <field name="x_length13" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 13)],'invisible': [('x_qty_inspection_stored', '&lt;', 13)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 13)]}"/>
+                    </div>
+                    <label for="x_length14" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 14)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 14)]}" class="o_row">
+                        <field name="x_length14" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 14)],'invisible': [('x_qty_inspection_stored', '&lt;', 14)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 14)]}"/>
+                    </div>
+                    <label for="x_length15" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 15)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 15)]}" class="o_row">
+                        <field name="x_length15" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 15)],'invisible': [('x_qty_inspection_stored', '&lt;', 15)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 15)]}"/>
+                    </div>
+                    <label for="x_length16" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 16)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 16)]}" class="o_row">
+                        <field name="x_length16" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 16)],'invisible': [('x_qty_inspection_stored', '&lt;', 16)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 16)]}"/>
+                    </div>
+                    <label for="x_length17" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 17)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 17)]}" class="o_row">
+                        <field name="x_length17" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 17)],'invisible': [('x_qty_inspection_stored', '&lt;', 17)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 17)]}"/>
+                    </div>
+                    <label for="x_length18" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 18)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 18)]}" class="o_row">
+                        <field name="x_length18" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 18)],'invisible': [('x_qty_inspection_stored', '&lt;', 18)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 18)]}"/>
+                    </div>
+                    <label for="x_length19" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 19)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 19)]}" class="o_row">
+                        <field name="x_length19" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 19)],'invisible': [('x_qty_inspection_stored', '&lt;', 19)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 19)]}"/>
+                    </div>
+                    <label for="x_length20" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 20)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 20)]}" class="o_row">
+                        <field name="x_length20" digits="(14, 3)" attrs="{'required': [('x_qty_inspection_stored', '>=', 20)],'invisible': [('x_qty_inspection_stored', '&lt;', 20)]}"/>
+                        <label string="in" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 20)]}"/>
+                    </div>
+                </group>
+            </group>
+        </page>
+        <page string="PERPENDICULARITY" attrs="{'invisible': [('workcenter_id', '!=', 5)]}">
+            <label string="Perp Result" style="font-weight:bold"/>
+            <field name="x_perp_fail" class="alert alert-danger oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <field name="x_perp_pass" class="alert alert-success oe_mt32" style="padding:0.3em 0.6em; font-size:100%;"/>
+            <br/>
+            <label for="x_max_measured_perp" string="Max Measured Perp" invisible="1"/>
+            <field name="x_max_measured_perp" invisible="1"/>
+            <label for="x_perp_min_tol" string="Min Tolerance"/>
+            <field name="x_perp_min_tol"/>
+            <label string="/64" style="font-weight:normal"/>
+            <br/>
+            <label for="x_perp_max_tol" string="Max Tolerance"/>
+            <field name="x_perp_max_tol"/>
+            <label string="/64" style="font-weight:normal"/>
+            <group>
+                <group>
+                    <label for="x_perp01" attrs="{'invisible': [('test_type', '!=', 'measure')]}"/>
+                    <div attrs="{'invisible': [('test_type', '!=', 'measure')]}" class="o_row">
+                        <field name="x_perp01" attrs="{'required': [('test_type', '=', 'measure')]}"/>
+                        <label string="/64"/>
+                    </div>
+                    <label for="x_perp02" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}" class="o_row">
+                        <field name="x_perp02" attrs="{'required': [('x_qty_inspection_stored', '>=', 2)],'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                        <label string="/64" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 2)]}"/>
+                    </div>
+                    <label for="x_perp03" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}" class="o_row">
+                        <field name="x_perp03" attrs="{'required': [('x_qty_inspection_stored', '>=', 3)],'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                        <label string="/64" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 3)]}"/>
+                    </div>
+                    <label for="x_perp04" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}" class="o_row">
+                        <field name="x_perp04" attrs="{'required': [('x_qty_inspection_stored', '>=', 4)],'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                        <label string="/64" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 4)]}"/>
+                    </div>
+                    <label for="x_perp05" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}" class="o_row">
+                        <field name="x_perp05" attrs="{'required': [('x_qty_inspection_stored', '>=', 5)],'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                        <label string="/64" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 5)]}"/>
+                    </div>
+                </group>
+                <group>
+                    <label for="x_perp06" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 6)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 6)]}" class="o_row">
+                        <field name="x_perp06" attrs="{'required': [('x_qty_inspection_stored', '>=', 6)],'invisible': [('x_qty_inspection_stored', '&lt;', 6)]}"/>
+                        <label string="/64" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 6)]}"/>
+                    </div>
+                    <label for="x_perp07" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 7)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 7)]}" class="o_row">
+                        <field name="x_perp07" attrs="{'required': [('x_qty_inspection_stored', '>=', 7)],'invisible': [('x_qty_inspection_stored', '&lt;', 7)]}"/>
+                        <label string="/64" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 7)]}"/>
+                    </div>
+                    <label for="x_perp08" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 8)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 8)]}" class="o_row">
+                        <field name="x_perp08" attrs="{'required': [('x_qty_inspection_stored', '>=', 8)],'invisible': [('x_qty_inspection_stored', '&lt;', 8)]}"/>
+                        <label string="/64" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 8)]}"/>
+                    </div>
+                    <label for="x_perp09" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 9)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 9)]}" class="o_row">
+                        <field name="x_perp09" attrs="{'required': [('x_qty_inspection_stored', '>=', 9)],'invisible': [('x_qty_inspection_stored', '&lt;', 9)]}"/>
+                        <label string="/64" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 9)]}"/>
+                    </div>
+                    <label for="x_perp10" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 10)]}"/>
+                    <div attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 10)]}" class="o_row">
+                        <field name="x_perp10" attrs="{'required': [('x_qty_inspection_stored', '>=', 10)],'invisible': [('x_qty_inspection_stored', '&lt;', 10)]}"/>
+                        <label string="/64" attrs="{'invisible': [('x_qty_inspection_stored', '&lt;', 10)]}"/>
+                    </div>
+                </group>
+            </group>
+        </page>
+    </notebook>
+    <footer>
+        <button name="do_measure" type="object" class="btn-primary" string="Validate" attrs="{'invisible': [('x_check_complete_stored', '=', False)]}"/>
+        <button name="do_pass" type="object" class="btn-primary" string="Pass" attrs="{'invisible': [('test_type', '=', 'measure')]}"/>
+        <button name="do_fail" type="object" class="btn-primary" string="Fail" attrs="{'invisible': [('test_type', '=', 'measure')]}"/>
+        <button string="Cancel" class="btn btn-default" special="cancel"/>
+    </footer>
+</form>
